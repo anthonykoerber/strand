@@ -32,11 +32,6 @@
 				reflectToAttribute: true,
 				observer: '_valueChanged'
 			},
-			// TODO: multiselectable
-			// multi: {
-			// 	type: Boolean,
-			// 	value: false
-			// },
 			_filter: {
 				type: Boolean,
 				value: false
@@ -136,18 +131,18 @@
 			var target = Polymer.dom(e).localTarget,
 				targetIndex = this.items.indexOf(target);
 			// console.log("_updateSelectedItem: ", e, target);
-			if(targetIndex >= 0) {
-				this.selectedIndex = targetIndex;
+			if (!this.multi) {
+				if(targetIndex >= 0) {
+					this.selectedIndex = targetIndex;
+				}
+			} else {
+				this._multiselectIndex(targetIndex);
 			}
-			// ***********************
-			// TODO: Multi-Select?
-			// ***********************
 		},
 
 		_selectedIndexChanged: function(newIndex, oldIndex) {
-			if(typeof newIndex === 'number') {
+			if (typeof newIndex === 'number') {
 				var newSelected = this.items[newIndex],
-					oldSelected = this.items[oldIndex],
 					value = newSelected.value ? newSelected.value : newSelected.textContent.trim();
 
 				if(this.value !== value) this.value = value;
@@ -158,11 +153,37 @@
 					index: newIndex,
 					value: this.value,
 					selected: true
-				});
+				});		
 			}
-			if(typeof oldIndex === 'number') {
+			if (typeof oldIndex === 'number' && !this.multi) {
 				this.items[oldIndex].toggleAttribute("selected");
 			}
+		},
+
+		_multiselectIndex: function(newIndex) {
+			var newSelected = this.items[newIndex],
+				toggle = this.selectedItems.indexOf(newSelected) > -1;
+
+			if (!toggle) {
+				this.push('selectedItems', newSelected);
+			} else {
+				this.splice('selectedItems', this.selectedItems.indexOf(newSelected), 1);
+			}
+
+			// ***********************
+			// TODO: How to handle value?
+			// array of value/text?
+			// ***********************
+			newSelected.toggleAttribute("selected");
+			
+			this.fire('selected', {
+				item: newSelected,
+				index: newIndex,
+				value: this.value,
+				selected: true
+			});
+			
+			console.log("_multiselectIndex: ", this.selectedItems); 
 		},
 
 		_fitparentChanged: function(newVal, oldVal) {
