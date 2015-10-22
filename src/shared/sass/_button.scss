@@ -94,6 +94,21 @@
 }
 
 /* _layout modes for button */
+/* special case for buttons in mm-group - blue on selection */
+:host([_layout=hgroup-left][selected]),
+:host([_layout=hgroup-center][selected]),
+:host([_layout=hgroup-right][selected]),
+:host([_layout=vgroup-top][selected]),
+:host([_layout=vgroup-center][selected]),
+:host([_layout=vgroup-bottom][selected]) {
+	.button.secondary {
+		color: $color-D0;
+		border-color: $color-D4;
+		box-shadow: none;
+		@include background-image(linear-gradient($color-D6, $color-D6));
+	}
+}
+
 /* horizontal */
 :host([_layout=hgroup-left]) {
 	.button  {
