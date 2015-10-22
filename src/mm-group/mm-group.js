@@ -27,7 +27,7 @@
 				observer: '_alignChanged'
 			},
 			value: { 
-				type: String,
+				type: Object,
 				value: false,
 				reflectToAttribute: true,
 				observer: '_valueChanged'
@@ -69,10 +69,6 @@
 			this.async(function() {
 				switch(this.type) {
 					case "mm-button":
-						// ***********************
-						// TODO: Why no tap listener?
-						// ***********************
-						// this.addEventListener('tap', this._updateSelectedItem.bind(this), false);
 						this.addEventListener('click', this._updateSelectedItem);
 						break;
 					case "mm-radio":
@@ -130,11 +126,9 @@
 		_updateSelectedItem: function(e) {
 			var target = Polymer.dom(e).localTarget,
 				targetIndex = this.items.indexOf(target);
-			// console.log("_updateSelectedItem: ", e, target);
+
 			if (!this.multi) {
-				if(targetIndex >= 0) {
-					this.selectedIndex = targetIndex;
-				}
+				this.selectedIndex = targetIndex;
 			} else {
 				this._multiselectIndex(targetIndex);
 			}
@@ -147,14 +141,9 @@
 
 				if(this.value !== value) this.value = value;
 				newSelected.toggleAttribute("selected");
-
-				this.fire('selected', {
-					item: newSelected,
-					index: newIndex,
-					value: this.value,
-					selected: true
-				});		
+				this._fireSelected(newSelected, newIndex);	
 			}
+
 			if (typeof oldIndex === 'number' && !this.multi) {
 				this.items[oldIndex].toggleAttribute("selected");
 			}
@@ -170,20 +159,21 @@
 				this.splice('selectedItems', this.selectedItems.indexOf(newSelected), 1);
 			}
 
-			// ***********************
-			// TODO: How to handle value?
-			// array of value/text?
-			// ***********************
+			this.value = this.selectedItems.map(function(item) {
+				return item.value ? item.value : item.textContent.trim();
+			});
+
 			newSelected.toggleAttribute("selected");
-			
+			this._fireSelected(newSelected, newIndex);
+		},
+
+		_fireSelected: function(selected, index) {
 			this.fire('selected', {
-				item: newSelected,
-				index: newIndex,
+				item: selected,
+				index: index,
 				value: this.value,
 				selected: true
 			});
-			
-			console.log("_multiselectIndex: ", this.selectedItems); 
 		},
 
 		_fitparentChanged: function(newVal, oldVal) {
