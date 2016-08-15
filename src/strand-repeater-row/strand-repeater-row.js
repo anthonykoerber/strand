@@ -24,7 +24,8 @@
 			},
 
 			_layout: {
-				type: String
+				type: String,
+				computed: '_computeLayout(errors, smallMessages)'
 			},
 
 			smallMessages: {
@@ -88,6 +89,10 @@
 					position = rect.left - rowRect.left,
 					offset = prev ? (prevRect.right - rowRect.left) : 0,
 
+					// width = current.offsetWidth,
+					// position = current.offsetLeft,
+					// offset = prev ? (prev.offsetLeft + prev.offsetWidth - current.offsetLeft) : 0,
+
 					s = {
 						left: (position-offset)+"px",
 						width: width+"px"
@@ -98,9 +103,11 @@
 		},
 
 		_computeLayout: function(errors, smallMessages) {
-			var small = errors.reduce(function(total, err) {
-				return total || (err.elt && err.elt.width <= smallMessages);
-			}, false);
+			var small = Array.isArray(errors) &&
+				smallMessages &&
+				errors.reduce(function(total, err) {
+					return total || (err.elt && err.elt.width <= smallMessages);
+				}, false);
 			return small ? 'small' : '';
 		},
 

@@ -52,6 +52,22 @@
 	position: relative;
 }
 
+@keyframes rollIn {
+	from {
+		opacity: 0;
+		max-height: 0;
+	}
+	to {
+		opacity: 1;
+		max-height: 2em;
+	}
+}
+
+.error-message[visible] {
+	animation: 300ms rollIn ease-out;
+	will-change: max-height;
+}
+
 [hidden] {
 	display: none;
 	pointer-events: none;
