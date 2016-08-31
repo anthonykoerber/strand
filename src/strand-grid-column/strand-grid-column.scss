@@ -5,6 +5,7 @@
 
 */
 /* strand-grid-column.sass */
+
 @import "_color";
 @import "_mixins";
 
@@ -21,7 +22,7 @@
 }
 
 ._mm_container {
-	user-select: none;
+	// user-select: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -59,7 +60,7 @@
 
 #info, #sort {
 	margin-left: 5px;
-	flex-shrink: 0;
+	// flex-shrink: 0;
 }
 
 #sort {

@@ -5,6 +5,7 @@
 
 */
 (function(scope) {
+	
 
 	scope.GridColumn = Polymer({
 		is: 'strand-grid-column',

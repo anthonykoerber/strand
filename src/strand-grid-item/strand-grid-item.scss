@@ -18,14 +18,21 @@
 	border-bottom: 1px solid $color-A9;
 }
 
-polyfill-next-selector { content: ':host ._mm_item'; }
+// polyfill-next-selector { content: ':host ._mm_item'; }
+
 ._mm_item {
-	padding: 10px 0;
+	box-sizing: border-box;
+	padding: 10px 15px;
+	display: flex;
 }
 
 #columnContainer {
-	overflow: hidden;
-	white-space: nowrap;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	width: 100%;
+	// overflow: hidden;
+	// white-space: nowrap;
 }
 
 #loader {

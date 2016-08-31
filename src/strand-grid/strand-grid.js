@@ -168,15 +168,31 @@
 		},
 
 		_setInitialColumnWidth: function() {
+			// checkbox, carat, padding
+			// if checkbox, get checkbox width
+			// if carat, get carat width
+			// get padding width
+			// subtract from the viewport width
+			var columnContainerWidth = this.$.viewport.offsetWidth - (27 + 29 + 30) -1;
 			var setInitialWidth = this._columns.every(function(column){
 				return column.width === null || column.width === undefined;
 			});
 
 			if(setInitialWidth) {
+				
 				var initialWidth = 100 / this._columns.length;
 				this._columns.forEach(function(column) {
 					column.width = initialWidth + "%";
 				});
+
+			} else {
+
+				this._columns.forEach(function(column){
+					var isPct = column.width.indexOf('%') !== -1;
+					var pct = parseInt(column.width.split('%', 1))/100;
+					column.width = Math.floor(columnContainerWidth * pct) + 'px';
+				});
+
 			}
 		},
 

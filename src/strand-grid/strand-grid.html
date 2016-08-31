@@ -19,7 +19,17 @@
 <dom-module id="strand-grid">
 	<link rel="import" type="css" href="strand-grid.css"/>
 	<template>
-		<strand-item-recycler id="viewport" gpu="{{gpu}}" data="{{data}}" scope="{{scope}}" index="{{index}}" template-finder="{{templateFinder}}" template-findable="{{templateFindable}}" mixin-findable="{{mixinFindable}}" measuring="{{_measuring}}">
+		<strand-item-recycler 
+			id="viewport" 
+			gpu="{{gpu}}" 
+			data="{{data}}" 
+			scope="{{scope}}" 
+			index="{{index}}" 
+			template-finder="{{templateFinder}}" 
+			template-findable="{{templateFindable}}" 
+			mixin-findable="{{mixinFindable}}" 
+			measuring="{{_measuring}}">
+
 			<div id="header" recycler="header">
 				<div class="_mm_column checkbox" hidden$="{{!selectable}}">
 					<strand-checkbox id="selectAll" on-tap="_toggleAllSelections" state="{{_selectAllState}}"></strand-checkbox>
@@ -31,14 +41,18 @@
 					<content id="columns" select="strand-grid-column"></content>
 				</div>
 			</div>
+			
 			<strand-loader id="loader" recycler="overlay" style$="{{_loaderStyle}}">
 				<label>Loading...</label>
 			</strand-loader>
+
 			<content select="template:not([is])"></content>
 			<template preserve-content>
 				<strand-grid-item model="{{model}}" scope="{{scope}}"></strand-grid-item>
 			</template>
+
 		</strand-item-recycler>
+
 		<div id="separator"></div>
 	</template>
 </dom-module>
