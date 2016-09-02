@@ -16,6 +16,7 @@
 	background: #fff;
 	@include defaultFont(12px, normal);
 	border-bottom: 1px solid $color-A9;
+	box-sizing: border-box;
 }
 
 // polyfill-next-selector { content: ':host ._mm_item'; }

@@ -6,6 +6,8 @@
 */
 (function(scope) {
 
+	var Measure = StrandLib.Measure;
+
 	function arrayToMap(arr, key){
 		return arr.reduce(function(map, obj) {
 			map[ obj[key] ] = obj;
@@ -168,31 +170,48 @@
 		},
 
 		_setInitialColumnWidth: function() {
-			// checkbox, carat, padding
+			// element to measure
+			var header = this.$.viewport.querySelector('#header').querySelector('#header');
+
 			// if checkbox, get checkbox width
+			var checkbox = this.selectable;
+			var checkboxWidth = header.querySelector('.checkbox').offsetWidth || 0;
+
 			// if carat, get carat width
+			var expandable = this.expandable;
+			var expandableWidth = header.querySelector('.toggle').offsetWidth || 0;
+
 			// get padding width
+			var itemPadding = Measure.getPaddingWidth(header);
+			var viewportWidth = this.$.viewport.offsetWidth - 1;
+
 			// subtract from the viewport width
-			var columnContainerWidth = this.$.viewport.offsetWidth - (27 + 29 + 30) -1;
+			var columnContainerWidth = viewportWidth - (checkboxWidth + expandableWidth + itemPadding);
+
+
 			var setInitialWidth = this._columns.every(function(column){
 				return column.width === null || column.width === undefined;
 			});
 
 			if(setInitialWidth) {
-				
-				var initialWidth = 100 / this._columns.length;
+				var initialWidth = columnContainerWidth / this._columns.length;
 				this._columns.forEach(function(column) {
-					column.width = initialWidth + "%";
+					column.width = initialWidth + "px";
 				});
-
 			} else {
-
 				this._columns.forEach(function(column){
+					// did the developer supply % width
 					var isPct = column.width.indexOf('%') !== -1;
 					var pct = parseInt(column.width.split('%', 1))/100;
-					column.width = Math.floor(columnContainerWidth * pct) + 'px';
-				});
 
+					if (isPct) {
+						column.width = Math.floor(columnContainerWidth * pct) + 'px';
+					} else {
+						// TODO: somehow traspose the px widths to the actual space available
+						// ...or I guess just straight-up set it, because a present width infers that
+						// someone knows what the hell they are doing by setting it
+					}
+				});
 			}
 		},
 
