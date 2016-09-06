@@ -19,8 +19,6 @@
 	box-sizing: border-box;
 }
 
-// polyfill-next-selector { content: ':host ._mm_item'; }
-
 ._mm_item {
 	box-sizing: border-box;
 	padding: 10px 15px;
@@ -32,8 +30,6 @@
 	flex-direction: row;
 	align-items: flex-start;
 	width: 100%;
-	// overflow: hidden;
-	// white-space: nowrap;
 }
 
 #loader {
@@ -51,7 +47,6 @@
 	white-space: inherit;
 }
 
-//Expansion Styles - TODO: Move to a reusable component
 ::content .expansion {
 	background: #f5f5f5;
 	color: $color-A3;

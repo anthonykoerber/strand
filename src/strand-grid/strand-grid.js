@@ -170,16 +170,16 @@
 		},
 
 		_setInitialColumnWidth: function() {
-			// element to measure
+			// get an element to measure - header has the items we'd need to measure
 			var header = this.$.viewport.querySelector('#header').querySelector('#header');
 
 			// if checkbox, get checkbox width
 			var checkbox = this.selectable;
-			var checkboxWidth = header.querySelector('.checkbox').offsetWidth || 0;
+			var checkboxWidth = checkbox ? header.querySelector('.checkbox').offsetWidth : 0;
 
 			// if carat, get carat width
 			var expandable = this.expandable;
-			var expandableWidth = header.querySelector('.toggle').offsetWidth || 0;
+			var expandableWidth = expandable ? header.querySelector('.toggle').offsetWidth : 0;
 
 			// get padding width
 			var itemPadding = Measure.getPaddingWidth(header);
@@ -210,6 +210,7 @@
 						// TODO: somehow traspose the px widths to the actual space available
 						// ...or I guess just straight-up set it, because a present width infers that
 						// someone knows what the hell they are doing by setting it
+						column.width = column.width + 'px';
 					}
 				});
 			}

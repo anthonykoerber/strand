@@ -4,38 +4,44 @@
  * This code may only be used under the BSD style license found at http://mediamath.github.io/strand/LICENSE.txt
 
 */
-:host ._mm_column {
+._mm_column {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	padding: 0px 10px;
-	// vertical-align: middle;
 	box-sizing: border-box;
 	display: flex;
-	align-items: center;
-	// float: left;
-	// min-height: 1px;
+	align-items: flex-start;
+
+	&:first-of-type {
+		padding-left: 0;
+	}
+
+	&:last-of-type {
+		padding-right: 0;
+	}
 
 	&.right {
 		text-align: right;
 	}
-
 	
 	&.checkbox,
 	&.toggle {
+		align-items: center;
 		box-sizing: content-box;
-		// margin: auto 0;
-		// padding: 0px 5px;
 		padding: 0 5px;
 
 		&:first-of-type {
 			padding-left: 0;
 		}
 	}
+
+	&.toggle {
+		padding-right: 10px;
+	}
 	
 	&.checkbox {
 		width: 18px;
-		// height: 18px;
 	}
 
 	&.toggle {
@@ -52,4 +58,8 @@
 			}
 		}
 	}
+}
+
+._mm_column[hidden] {
+	display: none;
 }

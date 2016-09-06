@@ -32,12 +32,15 @@
 			measuring="{{_measuring}}">
 
 			<div id="header" recycler="header">
+
 				<div class="_mm_column checkbox" hidden$="{{!selectable}}">
 					<strand-checkbox id="selectAll" on-tap="_toggleAllSelections" state="{{_selectAllState}}"></strand-checkbox>
 				</div>
+
 				<div id="carat" class="_mm_column toggle" hidden$="{{!expandable}}">
 					<strand-icon width="10" height="10" type="expand-all" on-tap="_toggleAllExpansions"></strand-icon>
 				</div>
+				
 				<div id="columnContainer">
 					<content id="columns" select="strand-grid-column"></content>
 				</div>

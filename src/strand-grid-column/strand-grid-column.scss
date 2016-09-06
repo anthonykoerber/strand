@@ -6,8 +6,10 @@
 */
 /* strand-grid-column.sass */
 
+@import "_bourbon";
 @import "_color";
-@import "_mixins";
+@import "_text";
+@import "_grid";
 
 :host {
 	position: relative;
@@ -15,6 +17,15 @@
 	cursor: default;
 	box-sizing: border-box;
 	background: $color-A16;
+	color: #00ff00;
+}
+
+:host(:first-of-type) {
+	padding-left: 0;
+}
+
+:host(:last-of-type) {
+	padding-right: 0;
 }
 
 :host([sort]) {
@@ -22,7 +33,6 @@
 }
 
 ._mm_container {
-	// user-select: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -60,7 +70,6 @@
 
 #info, #sort {
 	margin-left: 5px;
-	// flex-shrink: 0;
 }
 
 #sort {

@@ -19,11 +19,12 @@
 
 
 		.container {
-			width: 800px;
+			width: 100%;
 			height: 317px;
 		}
 
 		strand-grid {
+			width: 100%;
 			width: 800px;
 			height: 317px;
 		}
@@ -35,7 +36,7 @@
 </head>
 <body>
 	<div class="container">
-		<strand-grid id="mmTestGrid" selectable expandable="false" unresolved>
+		<strand-grid id="mmTestGrid" selectable expandable unresolved>
 			<strand-grid-column width="50%" field="id">Id</strand-grid-column>
 			<strand-grid-column width="25%" field="name">Name</strand-grid-column>
 			<strand-grid-column width="25%" field="advertiser">Advertiser</strand-grid-column>
@@ -54,6 +55,7 @@
 			</template>
 		</strand-grid>
 	</div>
+
 
 	<script type="text/javascript">
 		var bigData = null,
