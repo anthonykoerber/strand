@@ -20,7 +20,7 @@
 			<div id="carat" class="_mm_column toggle" hidden$="{{!scope.expandable}}">
 				<strand-icon width="10" height="10" type="carat" on-tap="_onItemExpanded"></strand-icon>
 			</div>
-			<div id="columnContainer">
+			<div id="columnContainer" style$="{{_setColumnContainerWidth(scope.selectable, scope.expandable)}}">
 				<template is="dom-repeat" items="{{scope._columns}}" as="column" on-dom-change="_checkDistributedNodesAsync">
 					<div class$="{{_computeColumnClass(column.alignColumn)}}" style$="{{_computeColumnStyle(column.width)}}" id="{{column.field}}">
 						<content id="{{column.field}}" select$="{{_columnContentSelector(column.field)}}"></content>

@@ -89,7 +89,13 @@
 			this.async(function () {
 				this.fire("item-resized", this.model.expanded);
 			});
-		}
+		},
+
+		_setColumnContainerWidth: function(selectable, expandable) {
+			// subtract from the viewport width
+			var width = 21.92 + 24.41;
+			return 'width: calc(100% - ' + width + 'px)';
+		},
 	});
 
 })(window.Strand = window.Strand || {});

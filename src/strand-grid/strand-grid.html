@@ -41,7 +41,7 @@
 					<strand-icon width="10" height="10" type="expand-all" on-tap="_toggleAllExpansions"></strand-icon>
 				</div>
 				
-				<div id="columnContainer">
+				<div id="columnContainer" style$="{{_setColumnContainerWidth(selectable, expandable)}}">
 					<content id="columns" select="strand-grid-column"></content>
 				</div>
 			</div>

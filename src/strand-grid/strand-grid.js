@@ -77,11 +77,13 @@
 				type: Boolean,
 				value: false,
 				observer: "_selectableChanged",
+				notify: true
 			},
 			expandable: {
 				type: Boolean,
 				value: false,
 				observer: "_expandableChanged",
+				notify: true
 			},
 			_columns: {
 				type: Array,
@@ -170,23 +172,23 @@
 		},
 
 		_setInitialColumnWidth: function() {
-			// get an element to measure - header has the items we'd need to measure
-			var header = this.$.viewport.querySelector('#header').querySelector('#header');
+			// // get an element to measure - header has the items we'd need to measure
+			// var header = this.$.viewport.querySelector('#header').querySelector('#header');
 
-			// if checkbox, get checkbox width
-			var checkbox = this.selectable;
-			var checkboxWidth = checkbox ? header.querySelector('.checkbox').offsetWidth : 0;
+			// // if checkbox, get checkbox width
+			// var checkbox = this.selectable;
+			// var checkboxWidth = checkbox ? header.querySelector('.checkbox').offsetWidth : 0;
 
-			// if carat, get carat width
-			var expandable = this.expandable;
-			var expandableWidth = expandable ? header.querySelector('.toggle').offsetWidth : 0;
+			// // if carat, get carat width
+			// var expandable = this.expandable;
+			// var expandableWidth = expandable ? header.querySelector('.toggle').offsetWidth : 0;
 
-			// get padding width
-			var itemPadding = Measure.getPaddingWidth(header);
-			var viewportWidth = this.$.viewport.offsetWidth - 1;
+			// // get padding width
+			// var itemPadding = Measure.getPaddingWidth(header);
+			// var viewportWidth = this.$.viewport.offsetWidth - 1;
 
-			// subtract from the viewport width
-			var columnContainerWidth = viewportWidth - (checkboxWidth + expandableWidth + itemPadding);
+			// // subtract from the viewport width
+			// var columnContainerWidth = viewportWidth - (checkboxWidth + expandableWidth + itemPadding);
 
 
 			var setInitialWidth = this._columns.every(function(column){
@@ -202,10 +204,11 @@
 				this._columns.forEach(function(column){
 					// did the developer supply % width
 					var isPct = column.width.indexOf('%') !== -1;
-					var pct = parseInt(column.width.split('%', 1))/100;
+					// var pct = parseInt(column.width.split('%', 1))/100;
 
 					if (isPct) {
-						column.width = Math.floor(columnContainerWidth * pct) + 'px';
+						// column.width = Math.floor(columnContainerWidth * pct) + 'px';
+						column.width = column.width;
 					} else {
 						// TODO: somehow traspose the px widths to the actual space available
 						// ...or I guess just straight-up set it, because a present width infers that
@@ -214,6 +217,13 @@
 					}
 				});
 			}
+		},
+
+		_setColumnContainerWidth: function(selectable, expandable) {
+			// subtract from the viewport width
+			// var columnContainerWidth = 'width: calc(100% - ' + (21.92 + 24.41) + 'px)';
+			var width = 21.92 + 24.41;
+			return 'width: calc(100% - ' + width + 'px)';
 		},
 
 		////// Selection //////
